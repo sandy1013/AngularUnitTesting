@@ -1,0 +1,23 @@
+.main-header {
+    height: 50px;
+    padding: 0.5em 1em;
+    box-sizing: border-box;
+
+    h1 {
+        margin: 0px;
+        padding: 0px;
+    }
+}
+
+.main-body {
+    height: calc(100% - 100px);
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.main-footer {
+    height: 50px;
+    padding: 0.5em 1em;
+    box-sizing: border-box;
+}

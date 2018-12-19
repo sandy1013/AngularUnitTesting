@@ -1,0 +1,11 @@
+<div class="home-component">
+    <div class="logout">
+        <button type="button" class="btn btn-sm btn-link" (click)="onLogout()">Log Out</button>
+    </div>
+    <div class="user-data">
+        <div *ngFor="let user of userData">
+            <p>User ID: {{user.userid}}</p>
+            <p>User Name: {{user.username}}</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+.home-component {
+    height: 100%;
+
+    $padding: 0.5em 1em;
+
+    .logout {
+        text-align: right;
+        padding: $padding;
+    }
+
+    .user-data {
+        padding: $padding;
+    }
+}
