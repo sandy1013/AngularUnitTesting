@@ -10,7 +10,7 @@ describe('LayoutComponet', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [LayoutComponent],
-            imports: [RouterTestingModule]
+            schemas: [NO_ERRORS_SCHEMA]
         })
     })
 

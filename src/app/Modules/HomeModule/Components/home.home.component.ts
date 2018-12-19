@@ -12,6 +12,7 @@ import { Router } from "@angular/router";
 })
 export class HomeComponent implements OnInit,OnDestroy {
     userData: MOCK_USER_DATA[]
+    subscription: Subscription
 
     constructor(private homeHttpService: HomeHttpService, 
                 private userservice: UserService,
@@ -19,8 +20,12 @@ export class HomeComponent implements OnInit,OnDestroy {
 
     ngOnInit() {
         this.homeHttpService.getUserData().then((data: MOCK_USER_DATA[]) => {
-            this.userData = data
+           this.userData = data
         });
+
+        this.subscription = this.homeHttpService.getUserDataObserable().subscribe((data: MOCK_USER_DATA[]) => { 
+            console.log(data)
+        })
     }
 
     onLogout() {
@@ -29,6 +34,6 @@ export class HomeComponent implements OnInit,OnDestroy {
     }
 
     ngOnDestroy() {
-        
+        if(this.subscription) this.subscription.unsubscribe()
     }
 }

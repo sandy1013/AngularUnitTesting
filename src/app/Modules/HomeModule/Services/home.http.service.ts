@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { MOCK_USER_DATA } from "./Models/home.mock.models";
+import { Subject, observable } from "rxjs";
 
 @Injectable()
 export class HomeHttpService {
@@ -18,11 +19,20 @@ export class HomeHttpService {
         }
     ]
 
-    getUserData(): Promise<any> {
+    private mock_user_data_obserable = new Subject<MOCK_USER_DATA[]>()
+
+    getUserData(): Promise<MOCK_USER_DATA[]> {
        return new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve(this.mock_user_data);
             }, 1000);
        })
+    }
+
+    getUserDataObserable(): Subject<MOCK_USER_DATA[]> {
+        setTimeout(() => {
+            this.mock_user_data_obserable.next(this.mock_user_data)
+        },1000)
+        return this.mock_user_data_obserable;
     }
 }

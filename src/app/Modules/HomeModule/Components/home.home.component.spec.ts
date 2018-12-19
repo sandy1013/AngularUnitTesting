@@ -5,6 +5,7 @@ import { HomeHttpService } from "../Services/home.http.service";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { RouterTestingModule } from "@angular/router/testing";
+import { Subject } from "rxjs";
 
 describe('HomeComponent', () => {
     let component: HomeComponent
@@ -23,7 +24,7 @@ describe('HomeComponent', () => {
                         UserService, 
                         { provide: HomeHttpService, useValue: HomeHttpServiceMock }
                        ]
-        }).compileComponents();
+        })
     }));
 
     beforeEach(async(() => {
@@ -63,10 +64,21 @@ describe('HomeComponent', () => {
         let myPromise = new Promise((resolve, reject) => {
             resolve(data)
         })
+        let mySubscription = new Subject();
+        spyOn(homeHttpService, 'getUserDataObserable').and.returnValue(mySubscription)
         spyOn(homeHttpService, 'getUserData').and.returnValue(myPromise);
         spyOn(component, 'ngOnInit').and.callThrough();
+        mySubscription.next(data);
+
         fixture.detectChanges()
+        
+        expect(homeHttpService.getUserDataObserable).toHaveBeenCalled()
+        expect(homeHttpService.getUserData).toHaveBeenCalled()
+        
+        console.log(component);
+
         tick()
+        
         expect(component.userData).toBeTruthy()
     }));
 });
